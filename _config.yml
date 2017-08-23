@@ -1,0 +1,56 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+title: Xiaogang(Theo) Xu
+brief-intro: ZJU student, interested in computer vision and AI
+baseurl: https://xiaogang00.github.io
+url: https://xiaogang00.github.io
+favicon: https://xiaogang00.github.io/images/favicon.png
+appleicon: https://xiaogang00.github.io/images/appleicon.png
+
+permalink: /:year/:month/:day/:title/
+
+# other links
+# twitter_username: xiaogang00
+# facebook_username: xiaogang00
+github_username:  xiaogang00
+email: xiaogangxu@zju.edu.cn
+linkedIn_username: 
+dribbble_username:
+
+description_footer: I am a undergraduate student in ZJU. My interest including machine learning, image processing and computer vision. Taking several projects in different field.
+
+# comments
+# two ways to comment, only choose one, and use your own short name
+# 两种评论插件，选一个就好了，使用自己的 short_name
+duoshuo_shortname: #hygblog
+disqus_shortname: xiaogang00
+
+# statistic analysis 统计代码
+google_analytics_id: UA-105181870-1 # google 分析追踪id
+
+# Build settings
+markdown: kramdown
+
+kramdown:
+  input: GFM
+#  syntax_highlighter: rouge
+
+# port
+# port: 1234
+# url
+category_dir: category/
+tag_dir: tag/
+
+# excerpt
+excerpt_separator: "\n\n\n\n"
+# paginate
+gems: [jekyll-paginate]
+paginate: 6
+
+# theme: jekyll-theme-midnight

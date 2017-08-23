@@ -1,0 +1,28 @@
+---
+layout: page
+title: About
+permalink: /about/
+icon: heart
+type: page
+---
+
+* content
+{:toc}
+
+## 关于我
+
+I am a undergraduate student in ZJU. My interest including machine learning, image processing and computer vision.
+
+Email：xiaogangxu@zju.edu.cn
+
+## 还没完成的工作
+
+
+
+## 友情链接
+
+
+
+## Comments
+
+{% include comments.html %}
