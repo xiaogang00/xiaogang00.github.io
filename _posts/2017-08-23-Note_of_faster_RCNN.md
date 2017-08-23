@@ -9,6 +9,9 @@ tags: computer_vision
 {:toc}
 
 
+
+
+
 在RCNN和fast RCNN之后，目标检测界的领军人物Ross Girshick团队在2015年又提出了faster RCNN。在这个框架下，简单网络目标检测速度达到17fps，在PASCAL VOC上准确率为59.9%；复杂网络达到5fps，准确率78.8%。
 
 
