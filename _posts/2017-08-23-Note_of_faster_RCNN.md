@@ -24,7 +24,7 @@ tags: computer_vision
 
 从RCNN到fast RCNN，再到本文的faster RCNN，目标检测的四个基本步骤（候选区域生成，特征提取，分类，位置精修）终于被**统一到一个深度网络框架之内**。所有计算没有重复，完全在GPU中完成，大大提高了运行速度。这三个框架可以由下图进行比较说明：
 
-![faster_RCNN](/Users/apple/project/xiaogang00.github.io/images/faster_RCNN.png) 
+![faster_RCNN](../images/faster_RCNN.png) 
 
 faster RCNN可以简单地看做“区域生成网络+fast RCNN“的系统，用区域生成网络代替fast RCNN中的Selective Search方法。论文着重解决了这个系统中的三个问题： 
 
@@ -52,7 +52,7 @@ faster RCNN可以简单地看做“区域生成网络+fast RCNN“的系统，�
 
 特征可以看做一个尺度$51\times 39$的256通道图像，对于该图像的每一个位置，考虑9个可能的候选窗口：三种面积${1282,2562,5122} \times $三种比例${1:1,1:2,2:1}$。这些候选窗口称为anchors。下图示出$51\times 39$个anchor中心，以及9种anchor示例。 
 
-![anchor](/Users/apple/project/xiaogang00.github.io/images/anchor.png)
+![anchor](../images/anchor.png)
 
 在整个faster RCNN算法中，有三种尺度:
 
