@@ -9,7 +9,12 @@ tags: computer_vision
 {:toc}
 
 
+
+
+
 Region CNN(RCNN)可以说是利用深度学习进行目标检测的开山之作。作者Ross Girshick多次在PASCAL VOC的目标检测竞赛中折桂，2010年更带领团队获得终身成就奖，如今供职于Facebook旗下的FAIR。 
+
+
 
 
 
