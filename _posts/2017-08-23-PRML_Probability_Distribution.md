@@ -10,6 +10,8 @@ tags: machine_learning
 ### 1. 共轭先验
 
 现在假设我们有这样几类概率：$P(\theta)$（先验分布）， $P(\theta|X)$（后验分布），$p(X), p(X|\theta)$ （似然函数）它们之间的关系可以通过贝叶斯公式进行连接： 
+
+
 $$
 后验分布 = 似然函数\times 先验分布/ P(X)
 $$
@@ -40,6 +42,8 @@ Conjugate prior的意义：方便进行Bayesian inference，甚至是sequential 
 一般来说一元高斯分布函数可以在R上的积分计算，而且任意 random vector 的协方差矩阵是非负定的。在这里需要证明和解决的是证明多元高斯的任意 random vector 的协方差矩阵是非负定的。
 
 多元高斯分布的形式为：
+
+
 $$
 N(x|\mu , \Sigma) = \frac{1}{(2\pi )^{D/2}} \frac{1}{|\Sigma|^{1/2}} exp \bigl\lbrace -\frac{1}{2} (\textbf{x}-\mathbf{\mu})^T \Sigma^{-1} (\textbf{x}- \mu)\bigr\rbrace
 $$
@@ -48,23 +52,30 @@ $$
 多元高斯的特点：
 
 1. 参数太多，计算复杂（协方差矩阵是维度的平方级的参数个数）
+
 2. 其函数为单锋函数，建模能力有限，所以可以进行拓展，支持multimodal function。 introducing discrete latent variables：例如 Gaussian Mixtures model。
 
+   ​
 
-
-#### 3. 指数族分布
+### 3. 指数族分布
 
 指数族的分布形式为：
+
+
 $$
 p(x|\eta) = h(x)\cdot g(\eta) \cdot exp\{ \eta^T \cdot \mu(x) \}
 $$
 其中$\eta$是natural parameter，它跟一个分布通常说的参数可能不同，而是由通常的参数经过变换而来（以符合指数族分别的形式）。
 
 假设用 MLE 方法进行参数估计， 我们首先对下式关于$\eta$求导：
+
+
 $$
 g(\eta) \int h(x) \cdot exp\{  \eta^T \cdot \mu(x)\} dx = 1
 $$
 并令导数为0后， 得到：
+
+
 $$
 -\triangledown ln(g(\eta)) = E[\mu(x) ] = \frac{1}{N} \sum\limits_{n=1}^N \mu(x_n)
 $$
@@ -96,11 +107,15 @@ $$
 固定 V（一个超立方体），在数据集上计算 V 范围内的 K。 常采用高斯函数做 smoothing kernel function。
 
 为了计算某个区域内的样本的点数，我们可以定义一个kernel function：
+
+
 $$
 k(\mu) = \begin{cases} &1, &|\mu_i| \leq 1/2, i=1,\dots , D  \\ &0 , &otherwise  \end{cases}
 $$
 所以如果$k(\frac{x-x_n}{h}) = 1$，那么表示的就是数据点$x_n$落在以x为中心，边长为 h 的 hypercube 中；否则
 不在该 hypercube 中。那么在 N 个点中，落入该 hypercube 中的点数是：
+
+
 $$
 K = \sum\limits_{n=1}^N = k(\frac{x-x_n}{h})
 $$
