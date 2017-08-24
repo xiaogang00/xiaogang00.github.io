@@ -9,12 +9,18 @@ tags: machine_learning
 {:toc}
 ### 1. 共轭先验
 
-现在假设我们有这样几类概率：$P(\theta)$（先验分布）， $P(\theta|X)$（后验分布），$p(X), p(X|\theta)$ （似然函数）它们之间的关系可以通过贝叶斯公式进行连接： 
+现在假设我们有这样几类概率：$P(\theta)$（先验分布）， $P(\theta\mid X)$（后验分布），$p(X), p(X \mid \theta)$ （似然函数）它们之间的关系可以通过贝叶斯公式进行连接： 
+
+
 
 
 $$
 后验分布 = 似然函数\times 先验分布/ P(X)
 $$
+
+
+
+
 之所以采用共轭先验的原因是可以使得先验分布和后验分布的形式相同，这样一方面合符人的直观（它们应该是相同形式的）另外一方面是可以形成一个先验链，即现在的后验分布可以作为下一次计算的先验分布，如果形式相同，就可以形成一个链条。为了使得先验分布和后验分布的形式相同，我们定义：如果先验分布和似然函数可以使得先验分布和后验分布有相同的形式，那么就称先验分布与似然函数**是共轭的**
 
 一些常见的共轭先验：
@@ -63,8 +69,10 @@ $$
 
 
 $$
-p(x|\eta) = h(x)\cdot g(\eta) \cdot exp\{ \eta^T \cdot \mu(x) \}
+p(x\mid \eta) = h(x)\cdot g(\eta) \cdot exp\{ \eta^T \cdot \mu(x) \}
 $$
+
+
 其中$\eta$是natural parameter，它跟一个分布通常说的参数可能不同，而是由通常的参数经过变换而来（以符合指数族分别的形式）。
 
 假设用 MLE 方法进行参数估计， 我们首先对下式关于$\eta$求导：
@@ -73,12 +81,16 @@ $$
 $$
 g(\eta) \int h(x) \cdot exp\{  \eta^T \cdot \mu(x)\} dx = 1
 $$
+
+
 并令导数为0后， 得到：
 
 
 $$
 -\triangledown ln(g(\eta)) = E[\mu(x) ] = \frac{1}{N} \sum\limits_{n=1}^N \mu(x_n)
 $$
+
+
 最右端得到的 vector 的各个分量都是指数族分别的充分统计量。
 
 
@@ -97,9 +109,9 @@ $$
 
 方法：
 
-1. 在足够小的区域 R 中考虑问题。任取一个点 x， 设落入 R 的概率是 P。设观察到N 个样本，则 R 中落入 K 个点的概率是分别 Bin(K|N,P)， Bin为二项分布；
+1. 在足够小的区域 R 中考虑问题。任取一个点 x， 设落入 R 的概率是 P。设观察到N 个样本，则 R 中落入 K 个点的概率是分别 $Bin(K\mid N,P)$， Bin为二项分布；
 2. 由于 R 足够小，所以 p(x)在 R 中近似常数，所以：$P = p(x) \times V$， V 是 R 的测度；
-3. 由于 N 足够大，二项分别 Bin(K|N,P)的取值集中在均值 $N\times P$ 附近，即：$K = N \times P$。
+3. 由于 N 足够大，二项分别 $Bin(K\mid N,P)$的取值集中在均值 $N\times P$ 附近，即：$K = N \times P$。
 4. 以上两式联立，可以得到区域 R 上的密度函数近似值：$ p(x) = \frac{K} {(N\times V)}$。
 
 **Kernel density estimator**
@@ -112,6 +124,8 @@ $$
 $$
 k(\mu) = \begin{cases} &1, &|\mu_i| \leq 1/2, i=1,\dots , D  \\ &0 , &otherwise  \end{cases}
 $$
+
+
 所以如果$k(\frac{x-x_n}{h}) = 1$，那么表示的就是数据点$x_n$落在以x为中心，边长为 h 的 hypercube 中；否则
 不在该 hypercube 中。那么在 N 个点中，落入该 hypercube 中的点数是：
 
@@ -119,6 +133,8 @@ $$
 $$
 K = \sum\limits_{n=1}^N = k(\frac{x-x_n}{h})
 $$
+
+
 由此我们当然就可以求出 hypercube 中的概率密度。这种 kernel function 将导致 artificial discontinuity，因此需要平滑的函数，通常是 Gaussian。
 
 但是在这里h的大小比较难以确定，是一个缺点。
