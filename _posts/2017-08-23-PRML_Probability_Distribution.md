@@ -13,6 +13,10 @@ tags: machine_learning
 
 
 
+
+
+
+
 ### 1. 共轭先验
 
 现在假设我们有这样几类概率：$P(\theta)$（先验分布）， $P(\theta\mid X)$（后验分布），$p(X), p(X \mid \theta)$ （似然函数）它们之间的关系可以通过贝叶斯公式进行连接： 
