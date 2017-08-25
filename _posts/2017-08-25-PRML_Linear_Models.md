@@ -102,3 +102,13 @@ $$
 
 
 对于回归问题，目标是找到函数 y(x)，使得期望损失 E[L]最小化；而 E[L]本身可以分解开来，由 bias, variance 和 noise 构成。 噪音noise 是一个和 y(x)无关的量，也就是说与回归做的好不好无关，是一个不可避免的量。而 bias 与 variance 则是一对矛盾量：flexible model 可以具有 low bias（ average model 能够很接近 best model）， high variance（但是 single model 对 data set D 的选取很敏感）， rigid model 则有 high bias， low variance。 好的模型应该在 bias 与 variance 之间达到一个折衷。
+
+
+
+### Bayesian的model complexity理论
+
+假设我们有多个模型，他们分别是$\{M_i:i=1,\dots,L \}$，观察到的 data set 是D。 Bayesian 的模型比较方法是，比较各个模型的后验概率：$P(M_i|D) \propto p(M_i)p(D|M_i)$，而在这里我们一般假设模型的先验概率都是一样的，那么比较的关键就是$p(D|M_i)$，被称为model evidence 或 marginal likelihood。
+
+一个替代的方法是不进行模型选择，而是通过将多个模型进行平均。以上分析可以看出，各个 model 的后验概率是关键，而计算后验概率的关键又是 model evidence。
+
+在这里$M_i$相当于超参数，而w是模型参数，模型之间的不同是由超参数引起的。
