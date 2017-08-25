@@ -107,8 +107,8 @@ $$
 
 ### Bayesian的model complexity理论
 
-假设我们有多个模型，他们分别是$\{M_i:i=1,\dots,L \}$，观察到的 data set 是D。 Bayesian 的模型比较方法是，比较各个模型的后验概率：$P(M_i|D) \propto p(M_i)p(D|M_i)$，而在这里我们一般假设模型的先验概率都是一样的，那么比较的关键就是$p(D|M_i)$，被称为model evidence 或 marginal likelihood。
+假设我们有多个模型，他们分别是$\{M_i:i=1,\dots,L \}$，观察到的 data set 是D。 Bayesian 的模型比较方法是，比较各个模型的后验概率：$P(M_i\mid D) \propto p(M_i)p(D\mid M_i)$，而在这里我们一般假设模型的先验概率都是一样的，那么比较的关键就是$p(D \mid M_i)$，被称为model evidence 或 marginal likelihood。
 
 一个替代的方法是不进行模型选择，而是通过将多个模型进行平均。以上分析可以看出，各个 model 的后验概率是关键，而计算后验概率的关键又是 model evidence。
 
-在这里$M_i$相当于超参数，而w是模型参数，模型之间的不同是由超参数引起的。
+在这里$M_i​$相当于超参数，而w是模型参数，模型之间的不同是由超参数引起的。
