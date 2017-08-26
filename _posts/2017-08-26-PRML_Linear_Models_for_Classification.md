@@ -56,5 +56,64 @@ $$
    把一个类的数据与非该类的数据分开；
 2. 一对一(One-versus-one)：用 $\frac{K(K-1)}{2}$ 个 binary discriminant 来完成 K 类的分类。
 
-但是两种方法都存在不足，有可能造成一个region里面的被分配到多个类中。
+但是两种方法都存在不足，有可能造成一个region里面的被分配到多个类中。这种问题被称为是ambiguous region 问题。
+
+特别地，我们可以用K个线性函数来组成K类的判别器，每个线性函数的形式可以写成：$y_k(x) = w_k^T x + w_{k0}$，类别m和n之间的决策超平面为：
+
+
+$$
+(w_m - w_n)^T x + (w_{m0} - w_{n0}) = 0
+$$
+
+
+可以证明这种 K-class discriminant 形成的决策空间(decision region) 是连通凸空间，所以不存在 ambiguous region 问题。如何来获取以上判别器中的参数，可以使用和回归方法中类似的方法，比如通过最小平方误差的方法，典型的包括我们熟悉的感知器算法。下面还有一个比较经典和重要的判别方法：Fisher’s linear discriminant
+
+#### Fisher’s linear discriminant
+
+注意到输入数据点 x 是一个D维向量，但是 $y=w^Tx$ 确是一个只有一维的 scalar，这个过程可以看作是D维的一个向量投影到1维空间上。 Fisher 判别的思想是，把分类看作选择一个1维空间，并把原 D 维数据投影到该空间的过程；选择1维空间的准则是 Fisher criterion，包含两方面的要求：一方面要求投影到1维空间后，不同类的数据是分开的；而另一方面要求同一类的数据能够尽可能聚集在一块。Fisher criterion 是这两方面要求的量化。求解Fisher criterion 最大化后，得到参数 w，即确定了决策超平面的（法）方向；剩下只需要再在1维上确定一个阈值 y0，表明该超平面的位置即可。
+
+
+
+### 生成模型(Generative model)
+
+如果我们需要求解二分类问题，也就是求解类别的后验概率$p(C_k \mid x)$：
+
+1. 对后验概率进行变形：
+
+
+$$
+p(C_1 \mid x) = \frac{1}{1+exp(-a)} , a = ln(\frac{p(x\mid C_1)p(C_1)}{p(x\mid C_2)p(C_2)})
+$$
+
+
+2. 需要假设类条件分布的形式，即$p(x\mid C_k) = N(\mu_k, \Sigma)$
+3. 在获得类条件分布和先验概率的情况下，可以求出后验概率:
+
+
+$$
+\begin{align} p(C_1\mid x) &= \sigma(w^T x + w_0) \\w &=\Sigma^{-1}(\mu_1 - \mu_2) \\ w_0 &= -\frac{1}{2}\mu_1^T \Sigma^{-1}\mu_1 + \frac{1}{2}\mu_2^T \Sigma^{-1}\mu_2 + ln\frac{p(C_1)}{p(C_2)}   \end{align}
+$$
+
+4. MLE参数估计
+
+   我们假设$p(C_1) = \pi, p(C_2) =1- \pi$，训练集为$\{x_n,t_n \}$，如果$x_n \in C_1$，则$t_n=1$，否则$t_n=0$。
+
+   我们可以得到似然函数，并且通过对各个参数求导就得出了 MLE 的参数估计值。这些值带入后验概率，就完成了求解。：
+
+$$
+p(t \mid \pi , \mu_1,\mu_2, \Sigma) = \prod \limits_{n=1}^N [\pi N(x_n \mid \mu_1,\Sigma)]^{t_n} [(1-\pi) N(x_n \mid \mu_2,\Sigma)]^{1-t_n}
+$$
+
+在这里总结下如何进行估计的方法：
+
+1. MLE 估计该分布中的参数（从而得到了 class-conditional distribution）；
+2. 计算每个类别的后验概率。
+
+
+
+### 判别模型(Discriminant model)
+
+判别模型具有优点：参数相比较而言少，是维数 D 的线性函数；相比之下 生成模型的参数是 D 的平方级。
+
+
 
