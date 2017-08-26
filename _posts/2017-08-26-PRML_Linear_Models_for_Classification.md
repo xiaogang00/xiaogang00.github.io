@@ -115,5 +115,55 @@ $$
 
 判别模型具有优点：参数相比较而言少，是维数 D 的线性函数；相比之下 生成模型的参数是 D 的平方级。
 
+#### 逻辑斯蒂回归(Logistic regression)
+
+其数学的表达式是：
+
+
+$$
+p(C_k \mid \phi) = \frac{exp(a_k)} {\sum\limits_j exp(a_j)}，a_k = w_k^T \phi
+$$
+
+
+当只有 2 个类时，上面的公式退化成 logistic function。以 2 个类的情况为例，现在的目标就变成为，给定训练数据$\{ \phi_n,t_n \}$，其中$\phi_n$是一个 D 维的 feature vector，而$t_n \in \{0,1\}$是类属标记。 此时的似然函数是：
+
+
+$$
+p(t\mid w) = \prod \limits_{n=1}^N y_n ^{t_n}(1-y_n) ^{1-t_n}
+$$
+
+
+求出最小化 negative logarithm of the likelihood（也就是交叉熵损失函数 cross-entropy error function）的参数w，从而完成对后验概率$p(C_k\mid \phi)$的inference：
+
+
+$$
+E(w) = -\sum\limits_{n=1}^N [t_N ln(y_n) + (1-t_n) ln(1-y_n)]
+$$
+
+
+具体如何最小化这个损失函数，可以使用类似牛顿迭代的方法，其迭代公式为$w^{new} = w^{old} -H^{-1} \triangledown E(w)$，其中H为Hessian矩阵。
+
+
+
+### 拉普拉斯近似
+
+在这里就是寻找一个高斯分布$q(z)$，来近似一个复杂的概率分布$p(z) = \frac{1}{Z} f(z)$，其中Z是归一化因子。
+
+一般首先寻找$f(z)$的一个驻点$z_0$，然后在这里将$ln[f(z)]$进行泰勒展开：
+
+
+$$
+ln[f(z)] \simeq ln[f(z_0)] -\frac{1}{2} A(z-z_0)^2,A = -\frac{d^2}{dz^2}ln[f(z)]\mid_{ z=z_0}
+$$
+由此我们可以得到高斯分布的近似:
+
+
+$$
+q(z) \simeq (\frac{A}{2\pi})^{1/2} exp\{ -\frac{A}{2}(z-z_0)^2 \}
+$$
+这就是用来近似原复杂分布$p(z)$的高斯分布。对于高维情况，用相应的高维泰勒展开和高维高斯分布即可。
+
+
+
 
 
