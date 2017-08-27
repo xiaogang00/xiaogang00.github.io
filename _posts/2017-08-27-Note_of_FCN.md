@@ -52,7 +52,7 @@ FCN对图像进行像素级的分类，从而解决了语义级别的图像分�
 
 ### upsampling
 
-假设现在我们有$\frac{1}{32}$尺寸的heatMap，$frac{1}{16}$尺寸的featureMap和$frac{1}{8}$寸的featureMap，$frac{1}{32}$尺寸的heatMap进行upsampling操作之后，因为这样的操作还原的图片仅仅是conv5中的卷积核中的特征，限于精度问题不能够很好地还原图像当中的特征，因此在这里向前迭代。把conv4中的卷积核对上一次upsampling之后的图进行反卷积补充细节（相当于一个差值过程），最后把conv3中的卷积核对刚才upsampling之后的图像进行再次反卷积补充细节，最后就完成了整个图像的还原。
+假设现在我们有$\frac{1}{32}$尺寸的heatMap，$\frac{1}{16}$尺寸的featureMap和$\frac{1}{8}$寸的featureMap，$\frac{1}{32}$尺寸的heatMap进行upsampling操作之后，因为这样的操作还原的图片仅仅是conv5中的卷积核中的特征，限于精度问题不能够很好地还原图像当中的特征，因此在这里向前迭代。把conv4中的卷积核对上一次upsampling之后的图进行反卷积补充细节（相当于一个差值过程），最后把conv3中的卷积核对刚才upsampling之后的图像进行再次反卷积补充细节，最后就完成了整个图像的还原。
 
 
 
