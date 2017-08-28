@@ -80,15 +80,12 @@ $$
 
 1. 对后验概率进行变形：
 
-
 $$
 p(C_1 \mid x) = \frac{1}{1+exp(-a)} , a = ln(\frac{p(x\mid C_1)p(C_1)}{p(x\mid C_2)p(C_2)})
 $$
 
-
 2. 需要假设类条件分布的形式，即$p(x\mid C_k) = N(\mu_k, \Sigma)$
 3. 在获得类条件分布和先验概率的情况下，可以求出后验概率:
-
 
 $$
 \begin{align} p(C_1\mid x) &= \sigma(w^T x + w_0) \\w &=\Sigma^{-1}(\mu_1 - \mu_2) \\ w_0 &= -\frac{1}{2}\mu_1^T \Sigma^{-1}\mu_1 + \frac{1}{2}\mu_2^T \Sigma^{-1}\mu_2 + ln\frac{p(C_1)}{p(C_2)}   \end{align}
@@ -96,9 +93,7 @@ $$
 
 4. MLE参数估计
 
-   我们假设$p(C_1) = \pi, p(C_2) =1- \pi$，训练集为$\{x_n,t_n \}$，如果$x_n \in C_1$，则$t_n=1$，否则$t_n=0$。
-
-   我们可以得到似然函数，并且通过对各个参数求导就得出了 MLE 的参数估计值。这些值带入后验概率，就完成了求解。：
+   我们假设$p(C_1) = \pi, p(C_2) =1- \pi$，训练集为$\{x_n,t_n \}$，如果$x_n \in C_1$，则$t_n=1$，否则$t_n=0$。我们可以得到似然函数，并且通过对各个参数求导就得出了 MLE 的参数估计值。这些值带入后验概率，就完成了求解。：
 
 $$
 p(t \mid \pi , \mu_1,\mu_2, \Sigma) = \prod \limits_{n=1}^N [\pi N(x_n \mid \mu_1,\Sigma)]^{t_n} [(1-\pi) N(x_n \mid \mu_2,\Sigma)]^{1-t_n}
