@@ -83,7 +83,7 @@ $$
 
 
 $$
-k(x_n, x_m) = \theta_0 exp\{ -\frac{\theta1}{2} \parallel x_n - x_m \parallel \} + \theta_2 + \theta_3 x_n^T x_m
+k(x_n, x_m) = \theta_0 exp\{ -\frac{\theta_1}{2} \parallel x_n - x_m \parallel \} + \theta_2 + \theta_3 x_n^T x_m
 $$
 
 
