@@ -18,14 +18,14 @@ tags: machine_learning
 在训练完成后， training data 有可能舍弃也有可能保留用于做 prediction。
 
 1. 第一种类型是把 training data 仅仅用于参数估计，估计出来后训练数据即可舍弃。例如：linear basis function model， generalized linear model， neural network 等；
-2. 第二种类型是在做 predication 时仍旧需要用到 training data。这又可细分为两种。一种是全部 training data需要保存，例如：kNN，Gaussian process等；另一种只需要保存一部分 training data，例如： SVM（只需要保存 Support Vector）。
+2. 第二种类型是在做 predication 时仍旧需要用到 training data。这又可细分为两种。一种是全部 training data需要保存，例如：kNN，Gaussian process等；另一种只需要保存一部分 training data，例如：SVM（只需要保存 Support Vector）。
+
 
 
 
 ### Kernel的定义和构造
 
-假设$phi$ 是一个non-linear feature space mapping，将 input x 映射到特征空间中。那么 kernel
-function 就是： $k(x,x') = \phi(x)^T \phi(x')^T$
+假设$\phi$ 是一个non-linear feature space mapping，将 input x 映射到特征空间中。那么 kernel function 就是： $k(x,x') = \phi(x)^T \phi(x')^T$
 
 两 种 典 型 kernel ： stationary kernel 和 homogeneous kernel 。前者的性质是 $k(x,x') = k(x-x')$，具有平移不变性；后者的性质是$k(x,x') = k(\parallel x-x' \parallel)$，也就是说仅依赖于参数之间的距离（ radial basis kernel）。
 
