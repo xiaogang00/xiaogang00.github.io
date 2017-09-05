@@ -87,7 +87,7 @@ $$
 
 
 $$
- E_{\varepsilon}(y(x)-t) = \begin{cases} 0 & \mid y(x) -t \mid < \varepsilon\\ \mid y(x)-t \mid - \varepsilon & otherwise \end{cases}
+E_{\varepsilon}(y(x)-t) = \begin{cases} 0 & \mid y(x) -t \mid < \varepsilon\\ \mid y(x)-t \mid - \varepsilon & otherwise \end{cases}
 $$
 
 
@@ -107,7 +107,7 @@ $$
 $$
 
 
-但是对于先验概率，则采用：$p(w \mid \alpha) = \prod\limits_{i=1}^M N(w_i \mid 0, \alpha_i^{-1})$
+但是对于先验概率，则采用：$p(w \mid \alpha) = \prod\limits_{i=1}^M N(w_i \mid 0, \alpha_i^{-1})$。
 
 作为一个 Bayesian model， RVM 以通过 marginalize 来求 predictive distribution 为目标；但在此之前，需要用 maximize marginal likelihood 来估计出 hyper-parameter 的值， 也就是$\alpha$和$\beta$。
 
