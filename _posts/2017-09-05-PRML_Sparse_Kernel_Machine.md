@@ -21,7 +21,7 @@ tags: machine_learning
 
 ### SVM的modeling过程： linearly separable的情况
 
-我们考虑二分类的问题，有N个数据$\{ x_n,t_n \}$，其中$t_n \in \{ -1,1 \}$
+我们考虑二分类的问题，有N个数据$\{ x_n,t_n \}$，其中$t_n \in \{ -1,1 \}$。
 
 *  modeling 的基本思路:
 
@@ -34,10 +34,12 @@ tags: machine_learning
 
   首先，任意一个点$x_n$到超平面$y(x)=0$的距离是$\frac{t_n y(x_n)}{\parallel w \parallel}$，而当 linearly separable 时，约束条件$t_n y(x_n) > 0$对每个点都可以满足。因此可以写出 margin 最大化的目标函数：
 
+  ​
 
 $$
 \begin{align} &arg \max \limits_{w,b} \{ \frac{1}{\parallel w \parallel}  \min\limits_n [t_n y(x_n)]\}  \\ &s.t. \quad t_ny(x_n)>0 , n = 1,\dots,N \end{align}
 $$
+
 ​       
 
 其中，约束条件表明找出来的超平面必须是将两个类正确分开的；而目标函数表明在所有正确分开两个类别的    超平面中，找 margin 最大的一个。我们可以据此人为规定：距超平面最近的点，到该平面的距离是 1，即$t_ny(x_n)=1$，那么，所有点到超平面的距离显然就有：$t_n y(x_n) \geq 1, n=1,\dots,N$。于是原目标函数就变成为在该约束条件下：
@@ -56,7 +58,10 @@ SVM的解是有特点的，即只有 support vector才起作用，这些点满�
 
 ### multiclass情况的SVM
 
-这仍旧是一个 open problem。一般采用 one-versus-the rest 的方法，这样就要训练 K 个 SVM。 这种有两方面的不足：第一，存在 ambiguous region，这个区域中的点会被判定为属于多个类别，出现了 inconsistency；第二，面临正负样本不均衡的可能，因为”the rest“的一方很可能远比”one“的一方数据要多。
+这仍旧是一个 open problem。一般采用 one-versus-the rest 的方法，这样就要训练 K 个 SVM。 这种有两方面的不足：
+
+1. 第一，存在 ambiguous region，这个区域中的点会被判定为属于多个类别，出现了 inconsistency；
+2. 第二，面临正负样本不均衡的可能，因为”the rest“的一方很可能远比”one“的一方数据要多。
 
 
 
