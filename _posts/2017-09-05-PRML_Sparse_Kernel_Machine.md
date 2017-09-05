@@ -46,7 +46,7 @@ $$
 
 
 $$
-\begin{align} &arg \max \limits_{w,b} \{ \frac{1}{2}\parallel w \parallel^2  \\ &s.t. \quad t_ny(x_n)\geq 1 , n = 1,\dots,N \end{align}
+\begin{align} &arg \max \limits_{w,b} \{ \frac{1}{2}\parallel w \parallel^2\}  \\ &s.t. \quad t_ny(x_n)\geq 1 , n = 1,\dots,N \end{align}
 $$
 
 
