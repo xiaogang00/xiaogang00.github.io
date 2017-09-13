@@ -106,3 +106,22 @@ $p(x \mid X) = \sum\limits_z \iiint p(x\mid z,\mu,\Lambda) p(z\mid \pi) p(\pi, \
 
 
 
+### Expectation Propagation
+
+在 variational inference 中，近似后验概率的方法是最小化$KL(q(Z) \parallel p(Z\mid X))$ with respect to $q(Z)$，其中$q(Z\mid X)$作为近似的目标是固定的，而第一个参数是可以变化的。在 expectation propagation 中，考虑的是 reversed form 的 KL，即：最小化$KL(p\parallel q)$ with respect to q，而p固定。也就是关于 KL 的第二个参数进行优化。如果限定$q(z)$在 exponential family($q(z) = h(z) g(\eta) exp\{ \eta^T [u(z)] \}$)的范围内变化，那么我们就有$KL(p\parallel q) = -ln[g(\eta)] - \eta^T E_{p(z)}[u(z)] + const$，const 是 与 natuaral parameter $\eta$无关的量 。 为最小化KL，我们对$\eta$求导，并且设置为0，我们可以得到$-\triangledown ln[g(\eta)] = E_{p(z)}[u(z)]$。然而根据 $q(z)$是 exponential family 的分布，所以其本身满足性质：$-\triangledown ln[g(\eta)] = E_{q(z)}[u(z)]$。因此得到$E_{p(z)}[u(z)] = E_{q(z)}[u(z)]$。最终确定$q(z)$的方法就是让$q(z)$的各个成分统计量等于$p(z)$的相应统计量。此过程即 moment matching。
+
+
+
+**问题：**我们已知某个 probabilistic model 中，joint distribution 可以这样分解：$p(D,\theta) = \prod\limits_i f_i(\theta)$。其中D 是 observed data， $\theta$是 latent variables（包括参数）。 现在要计算后验分布$p(\theta \mid D)$和model evidence $p(D)$，我们可以看到$p(\theta \mid D) = \frac{1}{p(D)} \prod_i f_i(\theta), p(D) = \int \prod_i f_i(\theta) d\theta$
+
+这个 model 的一个实例是独立同分布的情况。这时候$f_i (\theta) = p(x_i \mid \theta)$。
+
+
+
+**基本思路**：用分布$q(\theta) = \frac{1}{Z} \prod_i \tilde{f}_i(\theta)$来近似$p(\theta \mid D)$。每个factor$\tilde{f}_i(\theta)$相对应于model中的$f_i(\theta)$，如果我们假定$\tilde{f}_i(\theta)$是exponential family 的分布。 这样的话，显然 $q(\theta)$也是 exponential family 的分布。为此实现此近似，方法是最小化$KL(p(\theta \mid D) \parallel q(\theta))$ with respect $q(\theta)$。
+
+
+
+**详细思路**
+
+对于$q(\theta)$，我们逐个考虑因子$\tilde{f}_j(\theta)$，我们用$f_j(\theta)$替换$\tilde{f}_j(\theta)$，从而得到另一个分布：$\frac{1}{Z_j} f_j(\theta) q^{\setminus j}(\theta)$，其中我们有$q^{\setminus j}(\theta) = \frac{q(\theta)}{\tilde{f}_j (\theta)}$，$Z_j$是归一化因子。我们可以最小化$KL(\frac{1}{Z_j} f_j(\theta) q^{\setminus j}(\theta) \parallel q^{new} (\theta))$ with respect to $q^{new} (\theta)$，这可以通过 moment matching 来得到。得到$q^{new}(\theta)$之后，我们就可以得到$\tilde{f}_j^{new} (\theta) = K \frac{q^{new} (\theta)} {q^{\setminus j}(\theta)}$，$K = Z_j$。以上过程进行多轮，每一轮对每个$f_j(\theta)$ 逐个考虑， 从而不断迭代直至收敛，就得到了最后的$q(\theta)$。
