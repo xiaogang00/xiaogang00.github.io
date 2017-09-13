@@ -46,12 +46,12 @@ $$
 $$
 
 
-其中$ln[\tilde{p}(X,Z_j)] = E_{i \neq j} [ln\{p(X,Z)\}]+const$，而$E_{i\neq j}$表示的是在分布$\prod \limits_{i\neq j} q_i (Z_i)$下求期望。根据KL的性质，我们有$ln[q^* (Z_j)] = E_{i\neq j} [p(X,Z)] + const$。
+其中$ln[\tilde{p}(X,Z_j)] = E_{i \neq j} [ln\{p(X,Z)\}]+const$，而$E_{i\neq j}$表示的是在分布$\prod \limits_{i\neq j} q_i (Z_i)$下求期望。根据KL的性质，我们有$ln[q^{\ast}(Z_j)] = E_{i\neq j} [p(X,Z)] + const$。
 
 所以 variational inference 求解使 $L(q)$最大化的 $q(Z)$的方法是:
 
 1. 初始化每个$q_i(Z_i)$；
-2. 然后，逐个考虑$q_i(Z_i)$，在其他不变的条件下，求出$q_i^*(Z_i)$；
+2. 然后，逐个考虑$q_i(Z_i)$，在其他不变的条件下，求出$q_i^{\ast}(Z_i)$；
 3. 进行这个过程直到收敛。
 
 
@@ -74,35 +74,38 @@ $$
 
 **近似后验分布$p(Z,\pi, \mu,\Lambda \mid X)$**
 
-考虑 variational distribution $q(Z,\pi,\mu,\Lambda)$，并且假设其分解性质:$q(Z, \pi, \mu,\ Lambda) = q(Z) q(\pi, \mu,\Lambda)$，也就是在 parameter random variable 和狭义 latent variable 之间的分解性。接下来的就是标准的 variational inference 过程了。首先，针对 $q(Z)$优化 $L(q)$，得到：$ln[q^*(Z)] = E_{\pi}[p(Z\mid \pi)] + E_{\mu, \Lambda}[p(X\mid Z, \mu, \Lambda)] + const$
+考虑 variational distribution $q(Z,\pi,\mu,\Lambda)$，并且假设其分解性质:$q(Z, \pi, \mu,\ Lambda) = q(Z) q(\pi, \mu,\Lambda)$，也就是在 parameter random variable 和狭义 latent variable 之间的分解性。接下来的就是标准的 variational inference 过程了。首先，针对 $q(Z)$优化 $L(q)$，得到：$ln[q^{\ast}(Z)] = E_{\pi}[p(Z\mid \pi)] + E_{\mu, \Lambda}[p(X\mid Z, \mu, \Lambda)] + const$
 
 进一步解出来就是：
 
 
+
 $$
-\begin{align} ln[q^*(Z)] &= \sum\limits_{n=1}^N \sum\limits_{k=1}^K z_{nk} ln\rho_{nk} + const \\ ln \rho_{n} &= E_k[ln\pi_k] + \frac{1}{2} E[ln\mid \Lambda_k \mid]  - \frac{D}{2} ln(2\pi) - \frac{1}{2} E_{\mu_k, \Lambda_k}[(x_n - \mu_k)^T \Lambda_k (x_n - \mu_k)]\end{align}
+\begin{align} ln[q^{\ast}(Z)] &= \sum\limits_{n=1}^N \sum\limits_{k=1}^K z_{nk} ln\rho_{nk} + const \\ ln \rho_{n} &= E_k[ln\pi_k] + \frac{1}{2} E[ln\mid \Lambda_k \mid]  - \frac{D}{2} ln(2\pi) - \frac{1}{2} E_{\mu_k, \Lambda_k}[(x_n - \mu_k)^T \Lambda_k (x_n - \mu_k)]\end{align}
 $$
+
+
 然后我们针对$q(\pi, \mu,\Lambda)$来优化$L(q)$，得到：
 
 
+
 $$
-ln[q^* (\pi,\mu,\Lambda)] = ln[p(\pi)] + \sum\limits_{k=1}^K lnp(\mu_k, \Lambda_k) + E_Z[p(Z\mid \pi)] + \sum_n \sum_k E[z_n] N_k( x_n \mid \mu_k , \Lambda_k ^{-1}) + const
+ln[q^{\ast} (\pi,\mu,\Lambda)] = ln[p(\pi)] + \sum\limits_{k=1}^K lnp(\mu_k, \Lambda_k) + E_Z[p(Z\mid \pi)] + \sum_n \sum_k E[z_n] N_k( x_n \mid \mu_k , \Lambda_k ^{-1}) + const
 $$
 
-
-由此可见，计算$q^*(\pi , \mu, \Lambda)$依赖于Z的期望，另外我们可以看到$ln[q^*(\pi,\mu,\Lambda)]$是可以分解成关于$\pi$的一部分以及关于$\mu,\Lambda$的一部分的。所 以variational inference 的针对 $q(\pi, \mu,\Lambda)$的最优化$L(q)$ 可以细分为针对$q(\pi)$和K个$q(\mu_k ,\Lambda_k)$。以上两个过程迭代就可以得到最优化的解$q(Z),q(\pi,\mu,\Lambda)$。
+由此可见，计算$q^{\ast}(\pi , \mu, \Lambda)$依赖于Z的期望，另外我们可以看到$ln[q^{\ast}(\pi,\mu,\Lambda)]$是可以分解成关于$\pi$的一部分以及关于$\mu,\Lambda$的一部分的。所 以variational inference 的针对 $q(\pi, \mu,\Lambda)$的最优化$L(q)$ 可以细分为针对$q(\pi)$和K个$q(\mu_k ,\Lambda_k)$。以上两个过程迭代就可以得到最优化的解$q(Z),q(\pi,\mu,\Lambda)$。
 
 
 
 **Bayesian GMM 自动选择最优的分支数 K：**
-在上面的求解过程中，值得关注各个分支的混合因子 mixing coefficient $\pi$在后验分布下的期望值。 近似的后验分布 $q^*( \pi)$是一个 Dirchelet 分布。经计算可以发现，$\pi$的 K 个分量中，最后会有部分的期望 $E[\pi_k ]$ 趋于0，从而在 GMM 中不起作用。这样的话，我们可以实现自动的训练出最优的分支数：设置一个较大的 K，然后用上述 variational inference 得到近似后验分布，再把其中$E[\pi_k ]$接近 0 的分支去掉，剩下的即最终的 $K^*$值。
+在上面的求解过程中，值得关注各个分支的混合因子 mixing coefficient $\pi$在后验分布下的期望值。 近似的后验分布 $q^{\ast}( \pi)$是一个 Dirchelet 分布。经计算可以发现，$\pi$的 K 个分量中，最后会有部分的期望 $E[\pi_k ]$ 趋于0，从而在 GMM 中不起作用。这样的话，我们可以实现自动的训练出最优的分支数：设置一个较大的 K，然后用上述 variational inference 得到近似后验分布，再把其中$E[\pi_k ]$接近 0 的分支去掉，剩下的即最终的 $K^*$值。
 
 **Predictive distribution:**
 对 Bayesian 来说，得到后验概率（的近似）不是最终目的。剩下还要计算对给定一个新的x 的 predictive distribution。
 
 $p(x \mid X) = \sum\limits_z \iiint p(x\mid z,\mu,\Lambda) p(z\mid \pi) p(\pi, \mu, \Lambda \mid X)d\pi d\mu d\Lambda$
 
-把前面得到的近似后验分布 $q^*(\pi, \mu,\Lambda)$代替上面的$p(\pi, \mu, \Lambda\mid X)$，并且把其他已知的代入，最后得到的$p(x\mid X)$就是 K 个 student t 分布的线性组合。
+把前面得到的近似后验分布 $q^{\ast}(\pi, \mu,\Lambda)$代替上面的$p(\pi, \mu, \Lambda\mid X)$，并且把其他已知的代入，最后得到的$p(x\mid X)$就是 K 个 student t 分布的线性组合。
 
 
 
@@ -125,3 +128,4 @@ $p(x \mid X) = \sum\limits_z \iiint p(x\mid z,\mu,\Lambda) p(z\mid \pi) p(\pi, \
 **详细思路**
 
 对于$q(\theta)$，我们逐个考虑因子$\tilde{f}_j(\theta)$，我们用$f_j(\theta)$替换$\tilde{f}_j(\theta)$，从而得到另一个分布：$\frac{1}{Z_j} f_j(\theta) q^{\setminus j}(\theta)$，其中我们有$q^{\setminus j}(\theta) = \frac{q(\theta)}{\tilde{f}_j (\theta)}$，$Z_j$是归一化因子。我们可以最小化$KL(\frac{1}{Z_j} f_j(\theta) q^{\setminus j}(\theta) \parallel q^{new} (\theta))$ with respect to $q^{new} (\theta)$，这可以通过 moment matching 来得到。得到$q^{new}(\theta)$之后，我们就可以得到$\tilde{f}_j^{new} (\theta) = K \frac{q^{new} (\theta)} {q^{\setminus j}(\theta)}$，$K = Z_j$。以上过程进行多轮，每一轮对每个$f_j(\theta)$ 逐个考虑， 从而不断迭代直至收敛，就得到了最后的$q(\theta)$。
+
