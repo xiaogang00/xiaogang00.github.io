@@ -48,7 +48,7 @@ $$
 E[f] = \int p(z) f(z) dz  = \frac{Z_q}{Z_p} \int \frac{\tilde{p}(z) f(z)} {\tilde{q}(z)} q(z) dz \simeq \frac{Z_q}{Z_p} \frac{1}{L} \sum\limits_{l=1}^L \tilde{r}_l f(z^{(l)})
 $$
 
-其中$\tilde{r}_l = \frac{\tilde{p}(z^{(l)})}{\tilde{q}(z^{(l)})}​$。同样地，可以计算：
+其中$\tilde{r}_l = \frac{\tilde{p}(z^{(l)})}{\tilde{q}(z^{(l)})}$。同样地，可以计算：
 
 
 $$
@@ -58,7 +58,13 @@ $$
 
 最终我们可以得到：$E(f) = \frac{1}{L} \sum\limits_{l=1}^{L} w_l f(z^{(l)})$。
 
-其中， $z^{(l)}$是分布从 q(z)采样的 L 个样本，而$w_l = \frac{\tilde{r}_l}{\sum\limits_{m=1}^L \tilde{r}_m}$
+其中， $z^{(l)}$是分布从 q(z)采样的 L 个样本，而
+
+
+$$
+w_ l= \frac{\tilde{r}_l}{\sum\limits_{m=1}^L \tilde{r}_m}
+$$
+
 
 注意，在$w_l$的计算中，已经只需要分布 $p(z)$的与 z 有关部分$\tilde{p}_z$ 。 从而达到了目的。
 
