@@ -48,8 +48,13 @@ $$
 E[f] = \int p(z) f(z) dz  = \frac{Z_q}{Z_p} \int \frac{\tilde{p}(z) f(z)} {\tilde{q}(z)} q(z) dz \simeq \frac{Z_q}{Z_p} \frac{1}{L} \sum\limits_{l=1}^L \tilde{r}_l f(z^{(l)})
 $$
 
+其中$\tilde{r}_l = \frac{\tilde{p}(z^{(l)})}{\tilde{q}(z^{(l)})}​$。同样地，可以计算：
 
-其中$\tilde{r}_l = \frac{\tilde{p}(z^{(l)})}{\tilde{q}(z^{(l)})}​$。同样地，可以计算：$\frac{Z_q}{Z_p} = \frac{1}{Z_p}\int \tilde{p}(x)dx = \int \frac{q(x)}{\tilde{q}(x)} \tilde{p}(x)dx = \frac{1}{L} \sum\limits_{l=1}^L \tilde{r}_l​$
+
+$$
+\frac{Z_q}{Z_p} = \frac{1}{Z_p}\int \tilde{p}(x)dx = \int \frac{q(x)}{\tilde{q}(x)} \tilde{p}(x)dx = \frac{1}{L} \sum\limits_{l=1}^L \tilde{r}_l
+$$
+
 
 最终我们可以得到：$E(f) = \frac{1}{L} \sum\limits_{l=1}^{L} w_l f(z^{(l)})$。
 
