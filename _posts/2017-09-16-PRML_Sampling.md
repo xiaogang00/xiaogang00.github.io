@@ -49,7 +49,7 @@ E[f] = \int p(z) f(z) dz  = \frac{Z_q}{Z_p} \int \frac{\tilde{p}(z) f(z)} {\tild
 $$
 
 
-其中$\tilde{r}_l = \frac{\tilde{p}(z^{(l)})}{\tilde{q}(z^{(l)})}$。同样地，可以计算：$\frac{Z_q}{Z_p} = \frac{1}{Z_p}\int \tilde{p}(x)dx = \int \frac{q(x)}{\tilde{q}(x)} \tilde{p}(x)dx = \frac{1}{L} \sum\limits_{l=1}^L \tilde{r}_l$
+其中$\tilde{r}_l = \frac{\tilde{p}(z^{(l)})}{\tilde{q}(z^{(l)})}​$。同样地，可以计算：$\frac{Z_q}{Z_p} = \frac{1}{Z_p}\int \tilde{p}(x)dx = \int \frac{q(x)}{\tilde{q}(x)} \tilde{p}(x)dx = \frac{1}{L} \sum\limits_{l=1}^L \tilde{r}_l​$
 
 最终我们可以得到：$E(f) = \frac{1}{L} \sum\limits_{l=1}^{L} w_l f(z^{(l)})$。
 
@@ -76,10 +76,12 @@ Rejection sampling 要找一个常数 k，Importance sampling 不能得到 p(z)�
 
 ### Metropolis-Hastings算法
 
-与 Rejection sampling 和 Importance sampling 一样，需要为目标分布 p(z)找一个易于采用的proposal sampling q(z)。 该算法的采样过程是：假设当前已经 sampling 出的样本是$z^{(t)}$，那么下一个样本从分布$q(z\mid z^{(t)})$中获得，记新采样出的样本是$z^{\ast}$，我们以概率$A(z^{ast}, z^{(t)})$接受该样本。也就是说：
+与 Rejection sampling 和 Importance sampling 一样，需要为目标分布 p(z)找一个易于采用的proposal sampling q(z)。 该算法的采样过程是：假设当前已经 sampling 出的样本是$z^{(t)}$，那么下一个样本从分布$q(z\mid z^{(t)})$中获得，记新采样出的样本是$z^{\ast}$，我们以概率$A(z^{\ast}, z^{(t)})$接受该样本。也就是说：
 $$
 z^{(t+1)} =\begin{cases} z^{\ast} & if \quad accept \\z^{(t)} &if \quad reject \end{cases}
 $$
+其中$A(z^{\ast}, z^{(t)}) = \min \{ 1, \frac{\tilde{p}(z^{\ast})q(z^{(t)}\mid z^{\ast})}{\tilde{p}(z^{(t)})q(z^{\ast} \mid z^{(t)})} \}$，而$\tilde{p}(z)$是$p(z)$只与z相关的部分。
+
 以上算法其实定义了一个一阶 Markov chain$\{ z^{(t)}: t = 1, \dots \}$。需要证明的是，当$t \rightarrow \infty$时，z 的分布趋于目标分布 $p(z)$。可以验证 $p(z)$满足 detailed balance 条件，因此是该 Markov chain 的 invariant distribution。
 
 对于 continuous state space，一般用 Gaussian centred on the current state 作为 proposal distribution。而该分布的 variance 就是一个选择的难点了： variance 太小，则遍历 state space 慢，效率低； variance 太大，则导致拒绝率高，同样也效率低。
