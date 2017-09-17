@@ -80,7 +80,15 @@ y_i(x) = \phi(x)^T \nu_i = \sum\limits_{n=1}^N a_{in} k(x,x_n)
 $$
 
 
-上面的过程假设$\sum\limits_n \phi(x_n) =0$。对于一般的情况， 可以对 data 进行 centralize，即$\tilde{\phi}(x_n) = \phi(x_n) - \frac{1}{N} \sum\limits_n \phi(x_n)$。计算出$\tilde{K}_{nm} = \tilde{\phi}(x_n)^T \tilde{\phi}(x_m)$与$K_{nm} = \phi(x_n)^T \phi(x_m)$之间的关系。用后者把前者表示计算出来，剩下的就是针对$\tilde{K}_{nm}$解 eigenvector equation。
+上面的过程假设$\sum\limits_n \phi(x_n) =0$。对于一般的情况， 可以对 data 进行 centralize，即$\tilde{\phi}(x_n) = \phi(x_n) - \frac{1}{N} \sum\limits_n \phi(x_n)$。计算出
+
+
+$$
+tilde{K}_{nm} = \tilde{\phi}(x_n)^T \tilde{\phi}(x_m) \quad and \quad K_{nm} = \phi(x_n)^T \phi(x_m)
+$$
+
+
+之间的关系。用后者把前者表示计算出来，剩下的就是针对$\tilde{K}_{nm}$解 eigenvector equation。
 
 
 
