@@ -84,7 +84,7 @@ $$
 
 
 $$
-tilde{K}_{nm} = \tilde{\phi}(x_n)^T \tilde{\phi}(x_m) \quad and \quad K_{nm} = \phi(x_n)^T \phi(x_m)
+\tilde{K}_{nm} = \tilde{\phi}(x_n)^T \tilde{\phi}(x_m) \quad and \quad K_{nm} = \phi(x_n)^T \phi(x_m)
 $$
 
 
