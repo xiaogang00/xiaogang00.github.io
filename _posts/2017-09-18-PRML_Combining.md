@@ -52,9 +52,13 @@ $$
 对于 classification，设$p_{\tau k}$是 region $R_{\tau}$中属于类别 k 的样本数。有两个常用的函数来度量训练的目标：
 
 
+
+
 $$
 \begin{align} Q_{\tau} &= \sum\limits_k p_{\tau k} ln [p_{\tau k}] --- cross entropy \\ Q_{\tau}(T) &= \sum\limits_k  p_{\tau k} (1-p_{\tau k})  --- Gini index\end{align}
 $$
+
+
 为了避免 over-fitting（比如每个 leaf 只有一个 data point，那么 training error 就是 0 ，但这样显然不合理），需要对 decision tree 进行控制 model complexity。一种方法是控制 Leaf的数目。这时候得到 regression/classification 的目标函数：
 
 
